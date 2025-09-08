@@ -1,7 +1,8 @@
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -12,9 +13,34 @@ public class App {
         // after 5 day trip, calculate the total amount of money
         // each person owe to each and every person
         
-        List<String> friends = Arrays.asList("Alice", "Bob", "Carol", "Dave", "Eve");
-        String[] payers = {"Eve", "Bob", "Alice", "Carol", "Dave"};
-        double[] amounts = {180.0, 250.0, 180.0, 200.0, 250.0};
+        // List<String> friends = Arrays.asList("Alice", "Bob", "Carol", "Dave", "Eve");
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of friends: ");
+        int numFriends = sc.nextInt();
+        sc.nextLine();
+
+        List<String> friends = new ArrayList<>(); // empty arrayList (dynamic)
+        for(int i = 0; i < numFriends; i++){
+            System.out.print("Enter friend " + (i + 1) + " name: ");
+            friends.add(sc.nextLine().trim());
+        }
+
+        System.out.print("Enter number of expense records: ");
+        int numRecords = sc.nextInt();  // number of purchase entries (days)
+        sc.nextLine();
+
+        String[] payers = new String[numRecords];
+        double[] amounts = new double[numRecords];
+
+        for(int i = 0; i < numRecords; i++){
+            System.out.print("Enter name of purchaser from day "+(i+1)+": ");
+            payers[i] = sc.nextLine();
+            
+            System.out.print("Enter amount purchased from day " + (i+1) + ": ");
+            amounts[i] = sc.nextDouble();
+            sc.nextLine();
+        }
 
         // everyone spends equal amounts
         // day 1
@@ -39,7 +65,7 @@ public class App {
 
         System.out.println(balances);
 
-        for(int day = 0; day < 5; day++){
+        for(int day = 0; day < numRecords; day++){
             // retrieve the total and payer of EACH day
             String payer = payers[day];
             double total = amounts[day];
